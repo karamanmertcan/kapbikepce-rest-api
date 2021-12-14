@@ -2,6 +2,8 @@ import User from '../models/User';
 import jwt from 'jsonwebtoken';
 import { hashPassword, comparePassword } from '../helpers/auth';
 
+//@Desc Kullanıcı girişi yapmak için kullanılır.
+//@Route PUBLIC POST /api/login
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -33,6 +35,8 @@ export const login = async (req, res) => {
   }
 };
 
+//@Desc Kullanıcı üye olma
+//@Route PUBLIC POST /api/register
 export const register = async (req, res) => {
   // console.log(req.body);
   const { name, email, lastName, password, address } = req.body;
@@ -75,6 +79,8 @@ export const register = async (req, res) => {
   }
 };
 
+//@Desc Kullanıcı bilgilerini güncelleme
+//@Route PRIVATE PUT /api/user-update
 export const userUpdate = async (req, res) => {
   try {
     const data = {};
@@ -96,6 +102,8 @@ export const userUpdate = async (req, res) => {
   }
 };
 
+//@Desc Kullanıcı bilgilerini almak için kullanılır.
+//@Route PRIVATE GET /api/get-user
 export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
