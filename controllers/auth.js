@@ -23,9 +23,7 @@ export const login = async (req, res) => {
     }
 
     //token olusturma
-    const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '30d'
-    });
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
     user.password = undefined;
     return res.status(200).json({ token, user, ok: true });
@@ -74,5 +72,39 @@ export const register = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.status(400).json({ error: 'Kayıt Başarısız !!!' });
+  }
+};
+
+export const userUpdate = async (req, res) => {
+  try {
+    const data = {};
+
+    if (req.body.name) data.name = req.body.name;
+    if (req.body.lastName) data.lastName = req.body.lastName;
+    if (req.body.address) data.address = req.body.address;
+
+    const user = await User.findOneAndUpdate({ _id: req.user._id }, data, { new: true });
+
+    if (!user) {
+      return res.status(400).json({ error: 'Kullanici Bulunamadi' });
+    }
+
+    user.password = undefined;
+    return res.status(200).json({ user, ok: true });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    if (!user) return res.status(400).json({ error: 'Kullanici Bulunamadi' });
+
+    res.status(200).json({ user, ok: true });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ error: 'Kullanici Bulunamadi' });
   }
 };
