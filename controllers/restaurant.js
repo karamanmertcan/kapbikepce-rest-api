@@ -147,3 +147,36 @@ export const updateRestaurantItem = async (req, res) => {
     });
   }
 };
+
+export const updateRestaurant = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      message: 'Restaurant Güncellenemedi'
+    });
+  }
+};
+
+export const removeRestaurant = async (req, res) => {
+  try {
+    const restaurant = await Restaurant.findByIdAndDelete(req.params.id);
+
+    if (!restaurant) {
+      return res.status(400).json({
+        error: 'Restaurant Bulunamadı'
+      });
+    }
+
+    await restaurant.remove();
+
+    return res.status(200).json({
+      message: 'Restaurant Başarıyla Silindi'
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      message: 'Restaurant Silinemedi'
+    });
+  }
+};

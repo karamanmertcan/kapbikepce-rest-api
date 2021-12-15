@@ -17,8 +17,7 @@ const restaurantSchema = new Schema(
       public_id: String
     },
     address: {
-      type: String,
-      required: true
+      type: String
     },
     rating: [
       {
