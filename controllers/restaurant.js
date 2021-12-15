@@ -63,3 +63,87 @@ export const getRestaurant = async (req, res) => {
     });
   }
 };
+
+export const addRestaurantItem = async (req, res) => {
+  console.log('add item', req.body);
+
+  try {
+    const restaurant = await Restaurant.findByIdAndUpdate(
+      req.body._id,
+      {
+        $push: {
+          items: {
+            text: req.body.text,
+            price: req.body.price,
+            image: req.body.image,
+            category: req.body.category,
+            createdBy: req.user._id
+          }
+        }
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(restaurant);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      message: 'Restaurant Item Eklenemedi'
+    });
+  }
+};
+
+export const removeRestaurantItem = async (req, res) => {
+  console.log('remove item', req.body._id);
+
+  try {
+    const restaurant = await Restaurant.findByIdAndUpdate(
+      req.body.restaurantId,
+      {
+        $pull: {
+          items: { _id: req.body._id }
+        }
+      },
+      { new: true }
+    );
+
+    return res.status(200).json(restaurant);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      message: 'Restaurant Item Eklenemedi'
+    });
+  }
+};
+
+export const updateRestaurantItem = async (req, res) => {
+  try {
+    const updatedRestaurantItem = await Restaurant.updateOne(
+      {
+        _id: req.body._id,
+        'items._id': req.body.itemId
+      },
+      {
+        $set: {
+          'items.$': {
+            text: req.body.text,
+            price: req.body.price,
+            image: req.body.image,
+            category: req.body.category,
+            createdBy: req.user._id
+          }
+        }
+      },
+      { new: true }
+    );
+
+    const restaurant = await Restaurant.findById(req.body._id);
+
+    return res.status(200).json(restaurant);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      message: 'Restaurant Item Eklenemedi'
+    });
+  }
+};
