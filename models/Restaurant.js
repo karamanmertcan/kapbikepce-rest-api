@@ -10,7 +10,7 @@ const restaurantSchema = new Schema(
     },
     restaurantOwner: {
       type: ObjectId,
-      ref: 'User'
+      ref: 'RestaurantUser'
     },
     image: {
       url: String,
@@ -19,37 +19,20 @@ const restaurantSchema = new Schema(
     address: {
       type: String
     },
+    phoneNumber: {
+      type: String,
+      required: true
+    },
+    openHours: {
+      type: String,
+      required: true
+    },
     rating: [
       {
         type: Number,
         default: 0,
         min: 0,
         max: 5
-      }
-    ],
-    items: [
-      {
-        text: {
-          type: String,
-          required: true
-        },
-        price: {
-          type: Number,
-          required: true
-        },
-        image: {
-          url: String,
-          public_id: String
-        },
-        category: {
-          type: String,
-          required: true
-        },
-        created: { type: Date, default: Date.now },
-        createdBy: {
-          type: ObjectId,
-          ref: 'User'
-        }
       }
     ],
     comments: [

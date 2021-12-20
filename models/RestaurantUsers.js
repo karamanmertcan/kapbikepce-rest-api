@@ -6,7 +6,7 @@ const validateEmail = function (email) {
   return re.test(email);
 };
 
-const userSchema = new Schema(
+const restaurantUserSchema = new Schema(
   {
     name: {
       type: String,
@@ -17,6 +17,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
       trim: true
+    },
+    restaurantName: {
+      type: String,
+      required: true
     },
     email: {
       type: String,
@@ -32,26 +36,23 @@ const userSchema = new Schema(
       min: 6,
       max: 64
     },
-    //https://stackoverflow.com/questions/66383516/add-mongoose-validation-for-phone-numbers phone number validation
-
+    address: {
+      type: String,
+      required: true,
+      minlength: 30
+    },
     phoneNumber: {
       type: String,
       match: /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/,
       required: true
     },
-    address: {
-      type: String,
-      required: true
-    },
-    kepcePoints: {
-      type: Number,
-      default: 0
-    },
-    creditCards: [{ type: Schema.ObjectId, ref: 'CreditCard' }]
+    vergiNo: {
+      type: String
+    }
   },
   {
     timestamps: true
   }
 );
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model('RestaurantUser', restaurantUserSchema);
