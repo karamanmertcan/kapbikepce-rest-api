@@ -76,7 +76,7 @@ export const restaurantLogin = async (req, res) => {
 //@Desc Kullanıcı üye olma
 //@Route PUBLIC POST /api/register
 export const register = async (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   const { name, email, lastName, password, address, phoneNumber } = req.body;
 
   if (!name) return res.status(400).json({ error: 'İsim Zorunlu Alandır !!!' });
