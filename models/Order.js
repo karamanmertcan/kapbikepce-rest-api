@@ -9,7 +9,6 @@ const orderSchema = new Schema(
       ref: 'User',
       required: true
     },
-    orderOwnerName: { type: String, required: true },
 
     restaurantOwnerId: {
       type: ObjectId,

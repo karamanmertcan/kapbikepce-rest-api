@@ -18,7 +18,7 @@ export const createOrder = async (req, res) => {
       restaurantOwner,
       totalPrice: myTotalPrice,
       address,
-      isPaid,
+      isPaid: false,
       items
     });
 
@@ -63,6 +63,16 @@ export const getUserOrderById = async (req, res) => {
     console.log(error);
     return res.status(400).json({
       message: 'Kullanıcıya Ait Sipariş Bulunamadı'
+    });
+  }
+};
+
+export const updateProduct = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log(error);
+    return res.status(200).json({
+      message: 'Ürün Güncellenemedi'
     });
   }
 };

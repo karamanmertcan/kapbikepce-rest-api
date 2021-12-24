@@ -41,6 +41,8 @@ export const login = async (req, res) => {
 export const restaurantLogin = async (req, res) => {
   const { email, password } = req.body;
 
+  console.log(email, password);
+
   try {
     const restaurantUser = await RestaurantUsers.findOne({ email });
     if (!restaurantUser) {
@@ -139,7 +141,6 @@ export const registerRestaurant = async (req, res) => {
   if (!phoneNumber) return res.status(400).json({ error: 'Telefon numarası zorunlu alandır !!!' });
 
   const restaurantUser = await RestaurantUsers.findOne({ email });
-  console.log(restaurantUser);
 
   if (restaurantUser) return res.status(400).json({ error: 'Bu Email Kullanılıyor !!!' });
 

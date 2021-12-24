@@ -20,10 +20,6 @@ const productSchema = new Schema(
       type: Number,
       required: true
     },
-    image: {
-      url: String,
-      public_id: String
-    },
     category: {
       type: String,
       required: true
