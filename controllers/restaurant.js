@@ -7,6 +7,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET
 });
 
+//@DESC POST /api/restaurant/:id
+// Private
 export const createRestaurant = async (req, res) => {
   const { restaurantName, image, phoneNumber, address, openHours } = req.body;
 
@@ -36,6 +38,8 @@ export const createRestaurant = async (req, res) => {
   }
 };
 
+//@DESC GET /get-restaurants
+//Private
 export const getRestaurants = async (req, res) => {
   try {
     const restaurants = await Restaurant.find({}).populate('restaurantOwner', '_id name lastName');
@@ -48,6 +52,8 @@ export const getRestaurants = async (req, res) => {
   }
 };
 
+//@DESC PUT /api/restaurant/:id
+// Private
 export const getRestaurant = async (req, res) => {
   try {
     const restaurant = await Restaurant.find({ restaurantOwner: { _id: req.params.id } }).populate(
@@ -70,7 +76,7 @@ export const getRestaurant = async (req, res) => {
 };
 
 //@DESC PUT /update-restaurant
-
+//Private
 export const updateRestaurant = async (req, res) => {
   console.log(req.body.restaurantName);
   const { restaurantName, phoneNumber, address, openHours, isOpen } = req.body;
