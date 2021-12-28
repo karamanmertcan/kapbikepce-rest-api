@@ -23,3 +23,18 @@ export const restrauntOwnerUpdateEdit = async (req, res, next) => {
     console.log(error);
   }
 };
+
+export const isUserAdmin = async (req, res, next) => {
+  console.log(req.user.isAdmin);
+
+  try {
+    if (req.user && req.user.isAdmin) {
+      next();
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(401).json({
+      error: 'Kullanıcı admin değil.'
+    });
+  }
+};

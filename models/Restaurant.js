@@ -27,12 +27,21 @@ const restaurantSchema = new Schema(
       type: String,
       required: true
     },
+    isOpen: {
+      type: Boolean,
+      default: true,
+      required: true
+    },
     rating: [
       {
         type: Number,
         default: 0,
         min: 0,
-        max: 5
+        max: 5,
+        userId: {
+          type: ObjectId,
+          ref: 'User'
+        }
       }
     ],
     comments: [

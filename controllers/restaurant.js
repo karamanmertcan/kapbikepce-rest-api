@@ -73,14 +73,15 @@ export const getRestaurant = async (req, res) => {
 
 export const updateRestaurant = async (req, res) => {
   console.log(req.body.restaurantName);
-  const { restaurantName, phoneNumber, address, openHours } = req.body;
+  const { restaurantName, phoneNumber, address, openHours, isOpen } = req.body;
   try {
     const data = {};
 
-    if (restaurantName) data.restaurantName = req.body.restaurantName;
-    if (openHours) data.openHours = req.body.openHours;
-    if (phoneNumber) data.phoneNumber = req.body.phoneNumber;
-    if (address) data.address = req.body.address;
+    if (restaurantName) data.restaurantName = restaurantName;
+    if (openHours) data.openHours = openHours;
+    if (phoneNumber) data.phoneNumber = phoneNumber;
+    if (address) data.address = address;
+    if (isOpen) data.isOpen = isOpen;
 
     const restaurant = await Restaurant.findOneAndUpdate(
       { restaurantOwner: { _id: req.user._id } },
