@@ -103,3 +103,26 @@ export const updateRestaurant = async (req, res) => {
     });
   }
 };
+
+//@DESC DELETE /api/delete-restaurant/:id
+// Private
+export const deleteRestaurant = async (req, res) => {
+  try {
+    const restaurant = await Restaurant.findOneAndDelete(req.params.id);
+    if (!restaurant) {
+      return res.status(400).json({
+        error: 'Restaurant Bulunamadı'
+      });
+    }
+
+    res.status(200).json({
+      ok: true,
+      message: 'Restaurant Silindi'
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({
+      message: 'Restaurant Silinemedi'
+    });
+  }
+};

@@ -3,9 +3,10 @@ import {
   createRestaurant,
   getRestaurants,
   getRestaurant,
-  updateRestaurant
+  updateRestaurant,
+  deleteRestaurant
 } from '../controllers/restaurant';
-import { requireSignin, restrauntOwnerUpdateEdit } from '../middlewares/auth';
+import { requireSignin, restrauntOwnerUpdateEdit, isUserAdmin } from '../middlewares/auth';
 
 const router = express.Router();
 
@@ -15,6 +16,9 @@ router.get('/get-restaurants', requireSignin, getRestaurants);
 router.get('/get-restaurant/:id', requireSignin, getRestaurant);
 
 router.put('/update-restaurant', requireSignin, updateRestaurant);
+
+//admin routes
+router.delete('/delete-restaurant/:id', requireSignin, isUserAdmin, deleteRestaurant);
 
 module.exports = router;
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWJhMWI5NWVhMGMyZjQ1Yzk4ODJlMzEiLCJpYXQiOjE2Mzk1ODY3MzQsImV4cCI6MTY0MDE5MTUzNH0.jPZxyzJwvfh2UePUodODqNVinyy-2s73KldoSx4LyFA
