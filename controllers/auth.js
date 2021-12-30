@@ -88,7 +88,7 @@ export const register = async (req, res) => {
       .json({ error: 'Şifre Zorunlu Alandır ve 6 Karakterden Uzun Olmalıdır !!!' });
 
   if (!address) return res.status(400).json({ error: 'Adres Zorunlu Alandır !!!' });
-  if (!phoneNumber) return res.status(400).json({ error: 'Telefon numarası zorunlu alandır !!!' });
+  // if (!phoneNumber) return res.status(400).json({ error: 'Telefon numarası zorunlu alandır !!!' });
 
   const user = await User.findOne({ email });
 
@@ -101,8 +101,8 @@ export const register = async (req, res) => {
     email,
     lastName,
     password: hashedPassword,
-    address,
-    phoneNumber
+    address
+    // phoneNumber
   });
 
   try {
